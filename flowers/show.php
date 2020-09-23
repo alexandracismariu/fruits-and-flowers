@@ -19,12 +19,18 @@ $row = getElementFromTable("flowers", $_GET['id']);
     <li class="border border-purple-400 py-2 px-4"><b>Soil needs: </b><?php echo $row['soil_needs']; ?></li>
 </ul>
 
-<div class="pt-2 mx-auto w-64" <?php echo hideColumnFromTable(); ?>>
-    <a class="py-2 uppercase text-xl text-red-700 underline" href="delete.php?id=<?php echo $row['id']; ?>">delete me!</a>
-    <br>
-    <a class="py-2 uppercase text-xl text-green-700 underline" href="update.php?id=<?php echo $row['id']; ?>">edit me!</a>
-</div>
+
+    <?php
+        if (userIsAdmin()) {
+    ?>
+            <div class="w-64 mx-auto mt-4">
+                <a class="text-xl font-bold text-red-600 uppercase" href="delete.php?id=<?php echo $row['id']; ?>">Delete me!</a>
+                <br>
+                <a class="text-xl font-bold text-green-600 uppercase" href="update.php?id=<?php echo $row['id']; ?>">Edit me!</a>
+            </div>
+    <?php
+        }
+    ?>
 
 <?php
 include "../includes/footer.php";
-

@@ -1,7 +1,6 @@
 
 <?php 
 
-
     function dd($data) 
     {
         dump($data);
@@ -39,7 +38,7 @@
     {
         global $mysql;
 
-        $sql = "select * from users where username = '" . $username . "' and password = '" . $password . "'";
+        $sql = "select * from users where username = '" . $username . "' and password = md5('" . $password . "')";
 
         $result = $mysql->query($sql);
 
@@ -61,27 +60,11 @@
 
     function userIsAdmin() 
     {
-        if ($_SESSION['is_admin_logged'] == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($_SESSION['is_admin_logged'] == 1);
     }
 
     function allowOnlyAdminUsers() 
     {
-        // global $mysql;
-
-        // $result = $mysql->query("select * from users");
-
-        // $privilege = false;
-
-        // while ($row = $result->fetch_assoc()) {
-        //     if (($row['id'] == $_SESSION['user_id']) && ($row['user_privilege'] == 1)) {
-        //         $privilege = true;
-        //     }
-        // }
-
         if (!userIsAdmin()) {
             redirectTo('/index.php');
         }
@@ -105,20 +88,20 @@
         return $result->fetch_assoc();
     }
 
-    function hideColumnFromTable() 
-    {
-        if (!($_SESSION['is_admin_logged'] == 1)) {
-            return 'style="display: none"';
-        }
-    }
-
-    // function showCurrentUsernameLogged() 
+    // function hideColumnFromTable() 
     // {
-    //     if (isset($_SESSION['current_user_logged'])) {
-    //         return $_SESSION['current_user_logged'];
-    //     } else {
-    //         return "Unauthenticated user";
-    //     } 
+    //     if (!($_SESSION['is_admin_logged'] == 1)) {
+    //         return 'style="display: none"';
+    //     }
     // }
+
+    function getAuthenticatedUserName() 
+    {
+        if (isset($_SESSION['current_user_logged'])) {
+            return $_SESSION['current_user_logged'];
+        } else {
+            return "Unauthenticated user";
+        } 
+    }
 
 

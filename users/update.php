@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
 
     $privilege = isset($_POST['user_privilege']) ? 1 : 0;
 
-    $sql = "update users set name = '" . $_POST['name'] . "', username = '" . $_POST['username'] . "', password = '" . $_POST['password'] . "', user_privilege = '" . $privilege . "' where id = " . $_GET['id'];
+    $sql = "update users set name = '" . $_POST['name'] . "', username = '" . $_POST['username'] . "', password = md5('" . $_POST['password'] . "'), user_privilege = '" . $privilege . "' where id = " . $_GET['id'];
 
     $result = $mysql->query($sql);
 }
@@ -42,14 +42,14 @@ $row = getElementFromTable("users", $_GET['id']);
         </label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="username" name="username" value="<?php echo $row['username']; ?>">
     </div>
-<!-- 
+
     <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
             Password
         </label>
         <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************" name="password" value="<?php echo $row['password']; ?>">
         <p class="text-red-500 text-xs italic">Please choose a password.</p>
-    </div> -->
+    </div>
 
     <p class="block text-gray-700 text-sm font-bold mb-2">User privilege:</p>
     <div class="mb-6">

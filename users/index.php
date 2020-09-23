@@ -15,20 +15,16 @@ $result = $mysql->query("select * from users;");
         <th class="border px-4 py-4 font-bold">Id</th>
         <th class="border px-4 py-4 font-bold">Name</th>
         <th class="border px-4 py-4 font-bold">Username</th>
-        <th class="border px-4 py-4 font-bold" <?php
-                                                if (!($_SESSION['is_admin_logged'] == 1)) {
-                                                    echo 'style="visibility:collapse;"';
-                                                }
-                                                ?>>
-            Password
-        </th>
-        <th class="border px-4 py-4 font-bold" <?php
-                                                if (!($_SESSION['is_admin_logged'] == 1)) {
-                                                    echo 'style="visibility:collapse;"';
-                                                }
-                                                ?>>
-            User role
-        </th>
+        <?php
+            if (userIsAdmin()) {
+                echo '<th class="border px-4 py-4 font-bold">Password</th>';
+            }
+        ?>
+        <?php
+        if (userIsAdmin()) {
+            echo '<th class="border px-4 py-4 font-bold">User role</th>';
+        }
+        ?>
     </tr>
 
     <?php while ($row = $result->fetch_assoc()) {
@@ -42,20 +38,17 @@ $result = $mysql->query("select * from users;");
                 </a>
             </td>
             <td class="border px-4 py-4"><?php echo $row['username']; ?></td>
-            <td class="border px-4 py-4" <?php echo hideColumnFromTable(); ?>>
-                <?php
-                if (($_SESSION['is_admin_logged'] == 1)) {
-                    echo $row['password'];
+            <?php
+                if (userIsAdmin()) {
+                    echo '<td class="border px-4 py-4">' . $row['password'] . "</td>";
                 }
-                ?>
-            </td>
-            <td class="border px-4 py-4" <?php echo hideColumnFromTable(); ?>>
-                <?php
-                if (($_SESSION['is_admin_logged'] == 1)) {
-                    echo $privilege = $row['user_privilege'] ? "administrator" : "guest";
+            ?>
+            <?php
+                $privilege = $row['user_privilege'] ? "administrator" : "guest";
+                if (userIsAdmin()) {
+                    echo '<td class="border px-4 py-4">' .  $privilege . "</td>";
                 }
-                ?>
-            </td>
+            ?>
         </tr>
 
     <?php

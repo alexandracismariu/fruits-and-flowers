@@ -1,8 +1,8 @@
 <?php 
     session_start();
     include "config.php";
-    include "menu.php";
     include "functions.php";
+    include "menu.php";
 ?>
 
 <!DOCTYPE html>

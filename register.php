@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
         $message = "Sorry username already taken! Please, choose another!";
         echo "<script type='text/javascript'>alert('" . $message . "');</script>";
     } else {
-        $sql = "insert into users (name, username, password) values ( '" . $_POST['name'] . "', '" . $_POST['username'] . "', '" . $_POST['password'] . "')";
+        $sql = "insert into users (name, username, password) values ( '" . $_POST['name'] . "', '" . $_POST['username'] . "', md5('" . $_POST['password'] . "'))";
         $result = $mysql->query($sql);
 
         // dump($mysql->insert_id);

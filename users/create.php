@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
 
     $user_role = isset($_POST['user_privilege']) ? 1 : 0;
 
-    $sql = "insert into users (name, username, password, user_privilege) values ( '" . $_POST['name'] . "', '" . $_POST['username'] . "', '" . $_POST['password'] . "', '" . $user_role . "')";
+    $sql = "insert into users (name, username, password, user_privilege) values ( '" . $_POST['name'] . "', '" . $_POST['username'] . "', md5('" . $_POST['password'] . "'), '" . $user_role . "')";
     $result = $mysql->query($sql);
 }
 

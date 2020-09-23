@@ -16,12 +16,19 @@ $row = getElementFromTable("fruits", $_GET['id']);
     <li><b>Peel:</b> <?php echo $shell = $row['peel'] ? "eat" : "don't eat"; ?></li>
     <li><b>Taste:</b> <?php echo $row['taste']; ?></li>
 </ul>
-<div class="text-xl font-bold uppercase mx-auto w-64 pl-2 border border-red-500 mt-2 py-2" <?php echo hideColumnFromTable(); ?>>
-    <a class="text-red-600 underline" href="delete.php?id=<?php echo $row['id']; ?>">Delete the fruit</a>
-    <br>
-    <a class="text-green-600 underline" href="update.php?id=<?php echo $row['id']; ?>">Edit the fruit</a>
-</div>
+
+
+<?php
+    if (userIsAdmin()) {
+?>
+        <div class="w-64 mx-auto mt-4">
+            <a class="text-xl font-bold text-red-600 uppercase" href="delete.php?id=<?php echo $row['id']; ?>">Delete me!</a>
+            <br>
+            <a class="text-xl font-bold text-green-600 uppercase" href="update.php?id=<?php echo $row['id']; ?>">Edit me!</a>
+        </div>
+<?php
+    }
+?>
 
 <?php
 include "../includes/footer.php";
-

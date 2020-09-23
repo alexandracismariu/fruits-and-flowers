@@ -12,11 +12,7 @@
         } else { echo ""; } ?>">
 
         <?php
-            if (isset($_SESSION['current_user_logged'])) {
-                echo $_SESSION['current_user_logged'];
-            } else {
-                echo $username = "Unauthenticated user";
-            }
+            echo getAuthenticatedUserName();
         ?>
     </a>
 </div>
